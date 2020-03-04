@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 // 首页轮播图
 class HomeSwiper extends StatelessWidget {
 
@@ -9,7 +10,7 @@ class HomeSwiper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 333,
+      height: ScreenUtil().setHeight(333),
       child: Swiper(
         itemBuilder: (BuildContext context, int index){
           return Image.network("${swiperDataList[index]['image']}", fit: BoxFit.fill,);

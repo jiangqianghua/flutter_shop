@@ -14,6 +14,78 @@
 			{
 				"image": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583266606852&di=0ac1b050758a37eb56fd4ba5975e9e7d&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F4a36acaf2edda3cc2788974d02e93901213f926a.jpg"
 			}
+		],
+		"category": [
+			{
+				"mallCategoryName": "java",
+				"image": "http://www.52res.cn:8888/image/1560535655531-u=1621225449,767643730&fm=26&gp=0.jpg"
+			},
+			{
+				"mallCategoryName": "android",
+				"image": "http://www.52res.cn:8888/image/1560535672728-timg (13).png"
+			},
+			{
+				"mallCategoryName": "ios",
+				"image": "http://www.52res.cn:8888/image/1560535677538-timg (1).jpg"
+			},
+			{
+				"mallCategoryName": "python",
+				"image": "http://www.52res.cn:8888/image/1560535716515-u=444004759,521842046&fm=26&gp=0.jpg"
+			},
+			{
+				"mallCategoryName": "php",
+				"image": "http://www.52res.cn:8888/image/1560535722825-u=2031621405,1701338879&fm=26&gp=0.jpg"
+			},
+			{
+				"mallCategoryName": "mysql",
+				"image": "http://www.52res.cn:8888/image/1560535729205-timg (2).jpg"
+			},
+			{
+				"mallCategoryName": "golang",
+				"image": "http://www.52res.cn:8888/image/1560535752550-u=2486905288,2339571607&fm=26&gp=0.jpg"
+			},
+			{
+				"mallCategoryName": "人工智能",
+				"image": "http://www.52res.cn:8888/image/1560535791851-timg (17).jpg"
+			},
+			{
+				"mallCategoryName": "前端/小程序",
+				"image": "http://www.52res.cn:8888/image/1560535798615-timg (6).jpg"
+			},
+			{
+				"mallCategoryName": "运维/测试",
+				"image": "http://www.52res.cn:8888/image/1560535817756-timg (9).jpg"
+			}
+			
+		],
+		"advertesPicture": {
+			"PICTURE_ADDRESS": "http://192.168.1.102:8081/image/1.jpg"
+		},
+		"shopInfo": {
+			"leaderImage": "http://192.168.1.102:8081/image/2.jpg",
+			"leaderPhone": "+8615801523721"
+		},
+		"recommend": [
+			{
+				"image": "http://192.168.1.102:8081/image/shop1.jpg",
+				"mallPrice": 100.0,
+				"price": 200.0
+			},
+			{
+				"image": "http://192.168.1.102:8081/image/shop2.jpg",
+				"mallPrice": 100.0,
+				"price": 200.0
+			},
+			{
+				"image": "http://192.168.1.102:8081/image/shop3.jpg",
+				"mallPrice": 100.0,
+				"price": 200.0
+			},
+			{
+				"image": "http://192.168.1.102:8081/image/shop4.jpg",
+				"mallPrice": 100.0,
+				"price": 200.0
+			}
 		]
 	}
 }
