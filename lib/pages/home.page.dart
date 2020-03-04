@@ -7,6 +7,7 @@ import '../component/top_navigator.dart';
 import '../component/ad_banner.dart';
 import '../component/leader_phone.dart';
 import '../component/recommend_shop.dart';
+import '../component/floor_shop.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomePage extends StatefulWidget {
@@ -47,6 +48,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
               String leaderImage = dataInfo['shopInfo']['leaderImage'];
               String leaderPhone = dataInfo['shopInfo']['leaderPhone'];
               List<Map> recommendList = (dataInfo['recommend'] as List).cast();
+              String floor1Title = dataInfo['floor1Pic']['PICTURE_ADDRESS'];
+              List<Map> floor1 = (dataInfo['floor1'] as List).cast();
               return SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
@@ -54,7 +57,9 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                     TopNavigator(navigatorList: navgatorList,),
                     AdBanner(adPicture: adPicture,),
                     LeaderPhone(leaderImage: leaderImage, leaderPhone: leaderPhone,),
-                    RecommendShop(recommendList:recommendList)
+                    RecommendShop(recommendList:recommendList),
+                    FloorTitle(picture_address: floor1Title),
+                    FloorContent(floorGoodsList:floor1)
                   ],
                 )
               ); 
