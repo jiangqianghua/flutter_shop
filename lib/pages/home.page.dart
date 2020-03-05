@@ -8,6 +8,7 @@ import '../component/ad_banner.dart';
 import '../component/leader_phone.dart';
 import '../component/recommend_shop.dart';
 import '../component/floor_shop.dart';
+import '../component/hot_goods.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomePage extends StatefulWidget {
@@ -59,7 +60,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                     LeaderPhone(leaderImage: leaderImage, leaderPhone: leaderPhone,),
                     RecommendShop(recommendList:recommendList),
                     FloorTitle(picture_address: floor1Title),
-                    FloorContent(floorGoodsList:floor1)
+                    FloorContent(floorGoodsList:floor1),
+                    HotGoods()
                   ],
                 )
               ); 
