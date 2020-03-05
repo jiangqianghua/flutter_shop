@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/material_footer.dart';
+import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:flutter_shop/component/top_navigator.dart';
 import '../service/service_method.dart';
 import 'dart:convert';
@@ -10,6 +12,7 @@ import '../component/recommend_shop.dart';
 import '../component/floor_shop.dart';
 import '../component/hot_goods.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,7 +21,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   String homePageContent = '正在获取数据';
+ EasyRefreshController _refreshController = EasyRefreshController();
 
+ HotGoods hotGoods = HotGoods();
 @override
   void initState() {
     // TODO: implement initState
@@ -51,8 +56,11 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
               List<Map> recommendList = (dataInfo['recommend'] as List).cast();
               String floor1Title = dataInfo['floor1Pic']['PICTURE_ADDRESS'];
               List<Map> floor1 = (dataInfo['floor1'] as List).cast();
-              return SingleChildScrollView(
-                child: Column(
+              return EasyRefresh(
+                header: MaterialHeader(),
+                footer: MaterialFooter(),
+                controller: _refreshController,
+                child: ListView(
                   children: <Widget>[
                     HomeSwiper(swiperDataList: swiper,),
                     TopNavigator(navigatorList: navgatorList,),
@@ -61,11 +69,20 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                     RecommendShop(recommendList:recommendList),
                     FloorTitle(picture_address: floor1Title),
                     FloorContent(floorGoodsList:floor1),
-                    HotGoods()
+                    hotGoods
                   ],
-                )
-              ); 
-              
+                ),
+                onRefresh: () async{
+                    print('EasyRefresh onRefresh');
+                    await hotGoods.refresh();
+                    _refreshController.finishRefresh();
+                },
+                onLoad: () async{
+                    print('EasyRefresh onLoad');
+                    await hotGoods.loadMore();
+                    _refreshController.finishLoad();
+                },
+              );
           } else {
               return Center(
                 child: Text('加载错误'),

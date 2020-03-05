@@ -3,21 +3,44 @@ import '../service/service_method.dart';
 import 'dart:convert';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 class HotGoods extends StatefulWidget {
-
+  _HotGoodsState _hotGoodsState ;
   @override
-  _HotGoodsState createState() => _HotGoodsState();
+  _HotGoodsState createState() {
+    _hotGoodsState = _HotGoodsState();
+    return _hotGoodsState;
+  }
+
+  Future refresh() async{
+    await _hotGoodsState.refresh();
+  }
+
+  Future loadMore() async{
+    await _hotGoodsState.loadMore();
+  }
+  
+
 }
 
 class _HotGoodsState extends State<HotGoods> {
   final List<Map> _hotGoodsList = List();
   int page = 0;
-  void _getHotGoods(){
+  Future refresh() async{
+    page = 0;
+    await _getHotGoods();
+  }
+  Future loadMore() async{
+    await _getHotGoods();
+  }
+  Future _getHotGoods() async{
     getHomePageBelowConten().then((val){
         print('_getHotGoods-- $val');
         var data = json.decode(val.toString());
         print('_getHotGoods++ $data');
         List<Map> newGoodsList = (data['data'] as List).cast();
         setState(() {
+          if (page == 0){
+            _hotGoodsList.clear();
+          }
           _hotGoodsList.addAll(newGoodsList);
           page++;
         });
@@ -65,7 +88,8 @@ class _HotGoodsState extends State<HotGoods> {
                     Text(
                       '¥${item['price']}',
                       style: TextStyle(color:Colors.black26,
-                      decoration: TextDecoration.lineThrough)
+                      decoration: TextDecoration.lineThrough,
+                      )
                     )
                   ]
                 )
