@@ -39,14 +39,21 @@ class LeftCagetoryNav extends StatefulWidget {
 
 class _LeftCagetoryNavState extends State<LeftCagetoryNav> {
   List<Data> list = [];
+  var listIndex = 0;
   @override
   void initState(){
     _getCategory();
     super.initState();
   }
   Widget _leftInkWellItem(int index){
+    print('left click $index');
+    bool isClick = false;
+    isClick = (index == listIndex) ? true : false;
     return InkWell(
       onTap: (){
+        setState(() {
+          listIndex = index;
+        });
         var childList = list[index].bxMallSubDto;
         // 通知状态管理
         Provider.of<ChildCategory>(context,listen: false).getChildCatgory(childList);
@@ -55,7 +62,7 @@ class _LeftCagetoryNavState extends State<LeftCagetoryNav> {
         height: ScreenUtil().setHeight(100),
         padding: EdgeInsets.only(left:10, top:16),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: isClick ? Colors.black12 :Colors.white,
           border: Border(
             bottom: BorderSide(width: 1, color:Colors.black12)
           )
@@ -91,6 +98,7 @@ class _LeftCagetoryNavState extends State<LeftCagetoryNav> {
       CategoryModel categoryBigListModel = CategoryModel.fromJson(data);
       setState(() {
         list = categoryBigListModel.data;
+        Provider.of<ChildCategory>(context,listen: false).getChildCatgory(list[0].bxMallSubDto);
       });
       // list = list.data.forEach((item)=>print(item.mallCategoryName));
     });
@@ -105,6 +113,7 @@ class RightCategoryNav extends StatefulWidget {
 class _RightCategoryNavState extends State<RightCategoryNav> {
   @override
   Widget build(BuildContext context) {
+    // 监听状态改变
     final childCategory = Provider.of<ChildCategory>(context);
 
     return Container(
