@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
 import 'pages/index_page.dart';
-
-void main() => runApp(MyApp());
+import './provide/child_category.dart';
+import 'package:provider/provider.dart';
+void main() {
+  // 状态管理
+  var childCategory = ChildCategory();
+      runApp(
+        MultiProvider(
+          providers: [
+            // Provider.value(value: childCategory),
+            ChangeNotifierProvider.value(value: childCategory)
+          ],
+          child: MyApp(),
+        ),
+      );
+}
 
 class MyApp extends StatelessWidget {
   @override

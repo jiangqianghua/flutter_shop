@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../service/service_method.dart';
 import 'dart:convert';
 import '../model/category.dart';
+import '../provide/child_category.dart';
+import 'package:provider/provider.dart';
 
 class CategoryPage extends StatefulWidget {
   @override
@@ -18,7 +20,12 @@ class _CategoryPageState extends State<CategoryPage> {
       ),
       body: Row(
         children: <Widget>[
-          LeftCagetoryNav()
+          LeftCagetoryNav(),
+          Column(
+            children: <Widget>[
+              RightCategoryNav()
+            ],
+          )
         ],
       ),
     );
@@ -31,7 +38,7 @@ class LeftCagetoryNav extends StatefulWidget {
 }
 
 class _LeftCagetoryNavState extends State<LeftCagetoryNav> {
-  List<CategoryBigModel> list = [];
+  List<Data> list = [];
   @override
   void initState(){
     _getCategory();
@@ -40,7 +47,9 @@ class _LeftCagetoryNavState extends State<LeftCagetoryNav> {
   Widget _leftInkWellItem(int index){
     return InkWell(
       onTap: (){
-
+        var childList = list[index].bxMallSubDto;
+        // 通知状态管理
+        Provider.of<ChildCategory>(context,listen: false).getChildCatgory(childList);
       },
       child: Container(
         height: ScreenUtil().setHeight(100),
@@ -79,12 +88,57 @@ class _LeftCagetoryNavState extends State<LeftCagetoryNav> {
     void _getCategory() async {
     await getCategory().then((val){
       var data = json.decode(val.toString());
-      CategoryBigListModel categoryBigListModel = CategoryBigListModel.fromJson(data['data']);
+      CategoryModel categoryBigListModel = CategoryModel.fromJson(data);
       setState(() {
         list = categoryBigListModel.data;
       });
       // list = list.data.forEach((item)=>print(item.mallCategoryName));
     });
+  }
+}
+
+class RightCategoryNav extends StatefulWidget {
+  @override
+  _RightCategoryNavState createState() => _RightCategoryNavState();
+}
+
+class _RightCategoryNavState extends State<RightCategoryNav> {
+  @override
+  Widget build(BuildContext context) {
+    final childCategory = Provider.of<ChildCategory>(context);
+
+    return Container(
+      height: ScreenUtil().setHeight(80),
+      width: ScreenUtil().setWidth(570),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          bottom: BorderSide(width: 1, color: Colors.black12)
+        )
+      ),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: childCategory.childCategoryList?.length,
+        itemBuilder: (context, index){
+          return _rightInkWell(childCategory.childCategoryList[index]);
+        },
+      ),
+    );
+  }
+
+  Widget _rightInkWell(BxMallSubDto item){
+    return InkWell(
+      onTap: (){
+
+      },
+      child: Container(
+        padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),
+        child: Text(
+          item.mallSubName,
+          style: TextStyle(fontSize: ScreenUtil().setSp(28)),
+        ),
+      ),
+    );
   }
 }
 
