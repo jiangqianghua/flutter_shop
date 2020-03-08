@@ -191,13 +191,14 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
   Widget build(BuildContext context) {
     final List<CategoryListData> list = Provider.of<CategoryGoodsListProvide>(context).goodsList;
     print('_CategoryGoodsListState: ${list.length}');
-    return Container(
+    return Expanded(
+      child: Container(
         width: ScreenUtil().setWidth(570),
-        height: ScreenUtil().setHeight(900),
         child: ListView.builder(itemBuilder: (context, index){
           return _listWidget(list, index);
         },
         itemCount: list.length,),
+      ),
     );
   }
 
