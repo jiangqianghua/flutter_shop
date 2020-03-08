@@ -59,7 +59,7 @@ class _LeftCagetoryNavState extends State<LeftCagetoryNav> {
         });
         var childList = list[index].bxMallSubDto;
         // 通知状态管理
-        Provider.of<ChildCategory>(context,listen: false).getChildCatgory(childList);
+        Provider.of<ChildCategory>(context,listen: false).getChildCatgory(childList,list[index].mallCategoryId);
       },
       child: Container(
         height: ScreenUtil().setHeight(100),
@@ -101,7 +101,7 @@ class _LeftCagetoryNavState extends State<LeftCagetoryNav> {
       CategoryModel categoryBigListModel = CategoryModel.fromJson(data);
       setState(() {
         list = categoryBigListModel.data;
-        Provider.of<ChildCategory>(context,listen: false).getChildCatgory(list[0].bxMallSubDto);
+        Provider.of<ChildCategory>(context,listen: false).getChildCatgory(list[0].bxMallSubDto, list[0].mallCategoryId);
       });
       // list = list.data.forEach((item)=>print(item.mallCategoryName));
     });
@@ -138,22 +138,28 @@ class _RightCategoryNavState extends State<RightCategoryNav> {
         scrollDirection: Axis.horizontal,
         itemCount: childCategory.childCategoryList?.length,
         itemBuilder: (context, index){
-          return _rightInkWell(childCategory.childCategoryList[index]);
+          return _rightInkWell(index, childCategory.childCategoryList[index]);
         },
       ),
     );
   }
 
-  Widget _rightInkWell(BxMallSubDto item){
+  Widget _rightInkWell(int index, BxMallSubDto item){
+    bool isClick = false;
+    ChildCategory category = Provider.of<ChildCategory>(context);
+    isClick = (index == category.childIndex?true:false);
     return InkWell(
       onTap: (){
         _getGoodsList(categoryId: item.mallCategoryId);
+        // 改变状态index值
+        Provider.of<ChildCategory>(context, listen: false).changeChildIndex(index, item.mallCategoryId);
       },
       child: Container(
         padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),
         child: Text(
           item.mallSubName,
-          style: TextStyle(fontSize: ScreenUtil().setSp(28)),
+          style: TextStyle(fontSize: ScreenUtil().setSp(28),
+          color: isClick?Colors.pink:Colors.black),
         ),
       ),
     );
@@ -169,8 +175,10 @@ class _RightCategoryNavState extends State<RightCategoryNav> {
         CategoryGoodsListModel goodsListModel = CategoryGoodsListModel.fromJson(data);
         print('>>>>>>>>>>> ${goodsListModel.data.length}');
         // 通知状态管理
-        Provider.of<CategoryGoodsListProvide>(context,listen: false).getGoodsList(goodsListModel.data);
-        
+        if (goodsListModel.data == null)
+          Provider.of<CategoryGoodsListProvide>(context,listen: false).getGoodsList([]);
+        else
+          Provider.of<CategoryGoodsListProvide>(context,listen: false).getGoodsList(goodsListModel.data);
     });
     }
 }
@@ -191,15 +199,22 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
   Widget build(BuildContext context) {
     final List<CategoryListData> list = Provider.of<CategoryGoodsListProvide>(context).goodsList;
     print('_CategoryGoodsListState: ${list.length}');
-    return Expanded(
-      child: Container(
-        width: ScreenUtil().setWidth(570),
-        child: ListView.builder(itemBuilder: (context, index){
-          return _listWidget(list, index);
-        },
-        itemCount: list.length,),
-      ),
-    );
+    if (list.length > 0) {
+      return Expanded(
+            child: Container(
+              width: ScreenUtil().setWidth(570),
+              child: ListView.builder(itemBuilder: (context, index){
+                return _listWidget(list, index);
+              },
+              itemCount: list.length,),
+            ),
+          );
+    } else {
+      return Center(
+        child: Text('没有数据'),
+      );
+    }
+    
   }
 
   // void _getGoodsList() {
