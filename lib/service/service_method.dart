@@ -64,6 +64,24 @@ Future getCategory() async{
 
 }
 
+Future getCategoryMallList() async{
+  try{
+    Response response;
+    Dio dio = new Dio();
+    dio.options.contentType = ContentType.parse(ContentTypeJson);
+    dio.options.responseType = ResponseType.plain;
+    response = await dio.get(servicePath['getMallGoods']);
+    if (response.statusCode == 200){
+      return response.data;
+    } else {
+      throw Exception('获取数据异常');
+    }
+  }catch(e){
+    return print('ERROR: ======== ${e}');
+  }
+
+}
+
 
 // Future requestGet(url) async{
 //    try{
