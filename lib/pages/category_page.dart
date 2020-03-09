@@ -7,6 +7,7 @@ import '../provide/child_category.dart';
 import '../provide/category_goods_list.dart';
 import 'package:provider/provider.dart';
 import '../model/category_goodslist.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 class CategoryPage extends StatefulWidget {
   @override
@@ -189,7 +190,8 @@ class CategoryGoodsList extends StatefulWidget {
 }
 
 class _CategoryGoodsListState extends State<CategoryGoodsList> {
-
+ EasyRefreshController _refreshController = EasyRefreshController();
+ var listScrollController = new ScrollController();
   @override
   void initState() {
     // TODO: implement initState
@@ -199,14 +201,53 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
   Widget build(BuildContext context) {
     final List<CategoryListData> list = Provider.of<CategoryGoodsListProvide>(context).goodsList;
     print('_CategoryGoodsListState: ${list.length}');
+    try{
+      if (Provider.of<ChildCategory>(context).page == 1) {
+        // 当page为1， 滚动条设置到顶部
+        listScrollController.jumpTo(0.0);
+      }
+    }catch(e){
+      print('第一次进入初始化报错:');
+    }
     if (list.length > 0) {
       return Expanded(
             child: Container(
               width: ScreenUtil().setWidth(570),
-              child: ListView.builder(itemBuilder: (context, index){
-                return _listWidget(list, index);
-              },
-              itemCount: list.length,),
+              child: EasyRefresh(
+                footer: ClassicalFooter(
+                  bgColor: Colors.white,
+                  textColor: Colors.pink,
+                  loadText: 'loadText',
+                  loadReadyText: '开始准备加载',
+                  loadingText: '正在加载中',
+                  loadedText: '加载完成',
+                  loadFailedText: '加载失败',
+                  showInfo: false,  // 是否显示额外数据，比如最新更新时间
+                  infoText: 'infoText', // 显示额外数据
+                  noMoreText: Provider.of<ChildCategory>(context).noMoreText
+                ),
+                controller: _refreshController,
+                child: ListView.builder(
+                  controller: listScrollController,
+                itemBuilder: (context, index){
+                  return _listWidget(list, index);
+                },
+                itemCount: list.length,),
+                onRefresh: () async{
+                  // // 通知多久调用刷新
+                  // _refreshController.callRefresh();
+                  print('EasyRefresh onRefresh');
+                  // await hotGoods.refresh();
+                   _refreshController.finishRefresh();
+                },
+                onLoad: () async{
+                    print('EasyRefresh onLoad');
+                    // _getMoreList();
+                    // await hotGoods.loadMore();
+                    _getMoreList();
+                    _refreshController.finishLoad();
+                },
+              )
             ),
           );
     } else {
@@ -217,16 +258,25 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
     
   }
 
-  // void _getGoodsList() {
-  //   getCategoryMallList().then((val){
-  //       var data = json.decode(val.toString());
-  //       CategoryGoodsListModel goodsListModel = CategoryGoodsListModel.fromJson(data);
-  //       // print('>>>>>>>>>>> ${goodsListModel.data}');
-  //       setState(() {
-  //         list = goodsListModel.data;
-  //       });
-  //   });
-  // }
+  void _getMoreList() {
+    Provider.of<ChildCategory>(context,listen: false).addPage();
+    var categoryId = Provider.of<ChildCategory>(context, listen: false).categorId;
+    var data = {
+      'categoryId':categoryId == null ? '4':categoryId,
+      'categorySubId': Provider.of<ChildCategory>(context, listen: false).subId,
+      'page':Provider.of<ChildCategory>(context, listen: false).page
+    };
+    getCategoryMallList().then((val){
+        var data = json.decode(val.toString());
+        CategoryGoodsListModel goodsListModel = CategoryGoodsListModel.fromJson(data);
+        print('loadmore ${goodsListModel.data.length}');
+        // 通知状态管理
+        if (goodsListModel.data == null)
+          Provider.of<ChildCategory>(context,listen: false).changeNoMore('没有更多了');
+        else
+          Provider.of<CategoryGoodsListProvide>(context, listen: false).getMoreGoodsList(goodsListModel.data);
+    });
+    }
 
   Widget _goodsImage(List<CategoryListData> list, index){
       return Container(
