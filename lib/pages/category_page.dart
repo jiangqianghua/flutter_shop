@@ -8,6 +8,7 @@ import '../provide/category_goods_list.dart';
 import 'package:provider/provider.dart';
 import '../model/category_goodslist.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CategoryPage extends StatefulWidget {
   @override
@@ -271,10 +272,21 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
         CategoryGoodsListModel goodsListModel = CategoryGoodsListModel.fromJson(data);
         print('loadmore ${goodsListModel.data.length}');
         // 通知状态管理
-        if (goodsListModel.data == null)
+        if (goodsListModel.data == null || goodsListModel.data.length == 0){
+          Fluttertoast.showToast(
+            msg: "已经到底了",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.pink,
+            textColor: Colors.white,
+            fontSize: 16.0
+          );
           Provider.of<ChildCategory>(context,listen: false).changeNoMore('没有更多了');
-        else
+        }
+        else{
           Provider.of<CategoryGoodsListProvide>(context, listen: false).getMoreGoodsList(goodsListModel.data);
+        }
     });
     }
 
