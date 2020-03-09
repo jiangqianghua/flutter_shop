@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../service/service_method.dart';
 import 'dart:convert';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_shop/routers/application.dart';
 class HotGoods extends StatefulWidget {
   _HotGoodsState _hotGoodsState ;
   @override
@@ -66,7 +67,8 @@ class _HotGoodsState extends State<HotGoods> {
       List<Widget> listWidget = _hotGoodsList.map((item){
         return InkWell(
           onTap: (){
-
+            /// 点击路由跳转
+            Application.router.navigateTo(context, '/detail?id=${item['goodsId']}');
           },
           child: Container(
             width: ScreenUtil().setWidth(372),

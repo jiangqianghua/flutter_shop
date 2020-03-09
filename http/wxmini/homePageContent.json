@@ -67,21 +67,25 @@
 		},
 		"recommend": [
 			{
+				"goodsId": "1",
 				"image": "http://192.168.1.102:8081/image/shop1.jpg",
 				"mallPrice": 100.0,
 				"price": 200.0
 			},
 			{
+				"goodsId": "2",
 				"image": "http://192.168.1.102:8081/image/shop2.jpg",
 				"mallPrice": 100.0,
 				"price": 200.0
 			},
 			{
+				"goodsId": "3",
 				"image": "http://192.168.1.102:8081/image/shop3.jpg",
 				"mallPrice": 100.0,
 				"price": 200.0
 			},
 			{
+				"goodsId": "4",
 				"image": "http://192.168.1.102:8081/image/shop4.jpg",
 				"mallPrice": 100.0,
 				"price": 200.0
