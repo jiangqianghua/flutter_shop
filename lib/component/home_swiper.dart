@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_shop/routers/application.dart';
 // 首页轮播图
 class HomeSwiper extends StatelessWidget {
 
@@ -18,6 +19,9 @@ class HomeSwiper extends StatelessWidget {
         itemCount: swiperDataList.length,
         pagination: SwiperPagination(),
         autoplay: true,
+        onTap: (index){
+          Application.router.navigateTo(context, '/detail?id=${swiperDataList[index]['goodsId']}');
+        },
       ),
 
     );

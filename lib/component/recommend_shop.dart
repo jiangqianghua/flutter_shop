@@ -25,10 +25,10 @@ class RecommendShop extends StatelessWidget {
   }
 
   // 商品单独项
-   Widget _item(index){
+   Widget _item(BuildContext context, index){
      return InkWell(
        onTap: (){
-        //  Application.router.navigateTo(context, '/detail?id=${recommendList[index]['goodsId']}');
+         Application.router.navigateTo(context, '/detail?id=${recommendList[index]['goodsId']}');
        },
        child: Container(
          height: ScreenUtil().setHeight(330),
@@ -57,12 +57,12 @@ class RecommendShop extends StatelessWidget {
    }
 
    // 横向列表
-   Widget _recommedList(){
+   Widget _recommedList(BuildContext context){
      return Container(
        height: ScreenUtil().setHeight(330),
        child: ListView.builder(
          itemBuilder: (context, index){
-         return _item(index);
+         return _item(context, index);
        },
        scrollDirection: Axis.horizontal,
        itemCount: recommendList.length,
@@ -78,7 +78,7 @@ class RecommendShop extends StatelessWidget {
       child: Column(
         children: <Widget>[
           _titleWidget(),
-        _recommedList()
+        _recommedList(context)
         ],
       ),
     );
