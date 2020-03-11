@@ -1,4 +1,4 @@
-const serviceUrl = 'http://192.168.1.102:8081/';
+const serviceUrl = 'http://192.168.1.100:8081/';
 const servicePath = {
   'homePageContent': serviceUrl + 'wxmini/homePageContent.json', // 商店首页信息
   'homePageBelowConten': serviceUrl + 'wxmini/homePageBelowConten.json', //商城底部显示区域

@@ -63,61 +63,61 @@
 			
 		],
 		"advertesPicture": {
-			"PICTURE_ADDRESS": "http://192.168.1.102:8081/image/1.jpg"
+			"PICTURE_ADDRESS": "http://192.168.1.100:8081/image/1.jpg"
 		},
 		"shopInfo": {
-			"leaderImage": "http://192.168.1.102:8081/image/2.jpg",
+			"leaderImage": "http://192.168.1.100:8081/image/2.jpg",
 			"leaderPhone": "+8615801523721"
 		},
 		"recommend": [
 			{
 				"goodsId": "1",
-				"image": "http://192.168.1.102:8081/image/shop1.jpg",
+				"image": "http://192.168.1.100:8081/image/shop1.jpg",
 				"mallPrice": 100.0,
 				"price": 200.0
 			},
 			{
 				"goodsId": "2",
-				"image": "http://192.168.1.102:8081/image/shop2.jpg",
+				"image": "http://192.168.1.100:8081/image/shop2.jpg",
 				"mallPrice": 100.0,
 				"price": 200.0
 			},
 			{
 				"goodsId": "3",
-				"image": "http://192.168.1.102:8081/image/shop3.jpg",
+				"image": "http://192.168.1.100:8081/image/shop3.jpg",
 				"mallPrice": 100.0,
 				"price": 200.0
 			},
 			{
 				"goodsId": "4",
-				"image": "http://192.168.1.102:8081/image/shop4.jpg",
+				"image": "http://192.168.1.100:8081/image/shop4.jpg",
 				"mallPrice": 100.0,
 				"price": 200.0
 			}
 		],
 		"floor1Pic":{
-			"PICTURE_ADDRESS": "http://192.168.1.102:8081/image/2.jpg"
+			"PICTURE_ADDRESS": "http://192.168.1.100:8081/image/2.jpg"
 		},
 		"floor1":[
 			{
 				"goodsId": "1",
-				"image": "http://192.168.1.102:8081/image/shop4.jpg"
+				"image": "http://192.168.1.100:8081/image/shop4.jpg"
 			},
 			{
 				"goodsId": "2",
-				"image": "http://192.168.1.102:8081/image/shop3.jpg"
+				"image": "http://192.168.1.100:8081/image/shop3.jpg"
 			},
 			{
 				"goodsId": "3",
-				"image": "http://192.168.1.102:8081/image/shop2.jpg"
+				"image": "http://192.168.1.100:8081/image/shop2.jpg"
 			},
 			{
 				"goodsId": "4",
-				"image": "http://192.168.1.102:8081/image/shop1.jpg"
+				"image": "http://192.168.1.100:8081/image/shop1.jpg"
 			},
 			{
 				"goodsId": "5",
-				"image": "http://192.168.1.102:8081/image/shop4.jpg"
+				"image": "http://192.168.1.100:8081/image/shop4.jpg"
 			}
 		]
 	}
