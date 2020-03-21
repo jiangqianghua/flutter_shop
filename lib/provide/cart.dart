@@ -28,7 +28,8 @@ class CartProvide with ChangeNotifier {
         'goodsName':goodsName,
         'count':count,
         'price':price,
-        'image': image
+        'image': image,
+        'isCheck': true
       };
       // 添加
       tempList.add(newGoods);
@@ -59,5 +60,10 @@ class CartProvide with ChangeNotifier {
         cartList.add(CartInfoModel.fromJson(item));
       });
     }
+  }
+
+  //删除一个商品
+  deleteOneGoods(String goodsIf) async{
+
   }
 }

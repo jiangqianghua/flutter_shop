@@ -4,6 +4,7 @@ import 'package:flutter_shop/model/cartinfo.dart';
 import 'package:provider/provider.dart';
 import '../../provide/cart.dart';
 import '../../model/cartinfo.dart';
+import './cart_count.dart';
 
 class CartItem extends StatelessWidget {
   final CartInfoModel item;
@@ -21,7 +22,7 @@ class CartItem extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          _cartCheckBt(item),
+          _cartCheckBt(item, context),
           _cartImage(item),
           _cartGoodsName(item),
           _cartPrice(item)
@@ -30,10 +31,10 @@ class CartItem extends StatelessWidget {
     );
   }
 
-  Widget _cartCheckBt(item){
+  Widget _cartCheckBt(item, BuildContext context){
     return Container(
       child: Checkbox(
-        value: true,
+        value: item.isCheck,
         activeColor: Colors.pink,
         onChanged: (bool val){
 
@@ -60,7 +61,8 @@ class CartItem extends StatelessWidget {
       alignment: Alignment.topLeft,
       child: Column(
         children: <Widget>[
-          Text(item.goodsName)
+          Text(item.goodsName),
+          CartCount()
         ],
       ),
     );
